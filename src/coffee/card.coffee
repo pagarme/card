@@ -282,5 +282,14 @@ class Card
 
     el
 
+  changeCardNumber: (val) ->
+    element = @$numberInput[0]
+    formatterVal = Payment.fns.formatCardNumber val
+    element.value = formatterVal
+
+    QJ.trigger element, 'change', formatterVal
+
+    QJ.trigger element, 'payment.cardType', Payment.fns.cardType val
+
 module.exports = Card
 global.Card = Card

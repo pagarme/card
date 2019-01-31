@@ -8,94 +8,196 @@
 <body>
     <style>
         .demo-container {
-            width: 100%;
-            max-width: 350px;
+            font-family: system-ui;
             margin: 50px auto;
+            max-width: 350px;
+            width: 100%;
         }
 
-        form {
+        .form-container > form {
             margin: 30px;
         }
-        input {
-            width: 200px;
-            margin: 10px auto;
+        
+        .form-container > form > input {
+            border: 1px solid;
+            border-color:
+                rgb(216, 216, 216)
+                rgb(209, 209, 209)
+                rgb(186, 186, 186);
+            border-radius: 3px;
             display: block;
-        }
-        ul > li {
-            list-style: none;
+            font-size: 13px;
             margin: 10px auto;
-            display: flex;
-            border-style: ridge;
-            border-width: thin;
-            justify-content: center;
-            align-content: space-around;
+            padding: 2px;
+            min-width: 200px;
         }
+
+        .demo-list {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            min-width: 300px;
+        }
+
+        .demo-item {
+            align-content: space-around;
+            border: unset;
+            border-bottom: 1px solid rgb(186, 186, 186);
+            display: flex;
+            list-style: none;
+            padding: 15px 0px 5px 0px;
+        }
+
+        .demo-item > div {
+            display: flex;
+            flex: 1;
+            justify-content: flex-end;
+        }
+
         label {
             font-weight: bold;
+            padding-right: 5px;
         }
 
+        .change-card-number {
+            border-radius: 3px;
+            box-sizing: border-box;
+            cursor: pointer;
+            margin-left: 5px;
+            background-color: ghostwhite;
+            user-select: none;
+        }
 
+        .change-card-number:hover {
+            background-color: gainsboro;
+        }
+
+        .change-card-number:focus {
+            outline: none;
+        }
     </style>
     <div class="demo-container">
         <div class="card-wrapper"></div>
 
         <div class="form-container active">
             <form action="">
-                <input placeholder="Card number" type="tel" name="number">
-                <input placeholder="Full name" type="text" name="name">
-                <input placeholder="MM/YY" type="tel" name="expiry">
-                <input placeholder="CVC" type="number" name="cvc">
+                <input
+                    id="cardNumber"
+                    placeholder="Card number"
+                    type="tel"
+                    name="number"
+                />
+                <input
+                    placeholder="Full name"
+                    type="text"
+                    name="name"
+                />
+                <input
+                    placeholder="MM/YY"
+                    type="tel"
+                    name="expiry"
+                />
+                <input
+                    placeholder="CVC"
+                    type="number"
+                    name="cvc"
+                />
             </form>
         </div>
 
         <div class="card-examples">
-            <ul>
-                <li>
+            <div class="demo-list">
+                <div class="demo-item">
                     <label>Visa: </label>
-                    <span>4242424242424242</span>
-                </li>
-                <li>
+                    <span>4242 4242 4242 4242</span>
+                    <div>
+                        <button class="change-card-number">test</button>
+                    </div>
+                </div>
+                <div class="demo-item">
                     <label>Mastercard: </label>
-                    <span>5429928075765051</span>
-                </li>
-                <li>
+                    <span>5429 9280 7576 5051</span>
+                    <div>
+                        <button class="change-card-number">test</button>
+                    </div>
+                </div>
+                <div class="demo-item">
                     <label>JCB: </label>
-                    <span>3579227304262490</span>
-                </li>
-                <li>
+                    <span>3579 2273 0426 2490</span>
+                    <div>
+                        <button class="change-card-number">test</button>
+                    </div>
+                </div>
+                <div class="demo-item">
                     <label>Discover: </label>
-                    <span>6011889572517936</span>
-                </li>
-                <li>
+                    <span>6011 8895 7251 7936</span>
+                    <div>
+                        <button class="change-card-number">test</button>
+                    </div>
+                </div>
+                <div class="demo-item">
                     <label>American Express: </label>
-                    <span>344602251883433</span>
-                </li>
-                <li>
+                    <span>3446 022518 83433</span>
+                    <div>
+                        <button class="change-card-number">test</button>
+                    </div>
+                </div>
+                <div class="demo-item">
                     <label>Diner's club: </label>
-                    <span>38191488830715</span>
-                </li>
-                <li>
+                    <span>3819 148883 0715</span>
+                    <div>
+                        <button class="change-card-number">test</button>
+                    </div>
+                </div>
+                <div class="demo-item">
                     <label>Hipercard: </label>
-                    <span>6062822692654477</span>
-                </li>
-                <li>
+                    <span>6062 8226 9265 4477</span>
+                    <div>
+                        <button class="change-card-number">test</button>
+                    </div>
+                </div>
+                <div class="demo-item">
                     <label>Elo: </label>
-                    <span>6362977766810681</span>
-                </li>
-                <li>
+                    <span>6362 9777 6681 0681</span>
+                    <div>
+                        <button class="change-card-number">test</button>
+                    </div>
+                </div>
+                <div class="demo-item">
                     <label>Aura: </label>
-                    <span>5078601870000127985</span>
-                </li>
-            </ul>
+                    <span>5078 6018 7000 0127 985</span>
+                    <div>
+                        <button class="change-card-number">test</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script src="http://localhost:8080/card.js"></script>
     <script>
-        new Card({
-            form: document.querySelector('form'),
-            container: '.card-wrapper'
-        });
+        (function() {
+            let card
+            const createCard = () =>  new Card({
+                form: document.querySelector('form'),
+                container: '.card-wrapper'
+            });
+            
+            const handleCardNumberChange = (clickEvent) => {
+                const btn = clickEvent.target
+                const li = btn.parentElement.parentElement
+                const span = li.querySelector('span')
+                const cardNumber = span.innerText
+
+                card.changeCardNumber(cardNumber)
+            }
+
+            document.querySelectorAll('button.change-card-number')
+                .forEach(element =>
+                    element.addEventListener('click', handleCardNumberChange))
+
+            card = createCard()
+        })()
     </script>
 </body>
 </html>
