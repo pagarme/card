@@ -1,0 +1,57 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: node:10
+    working_directory: ~/card
+    steps:
+      - checkout
+      - run:
+          name: Update Submodules
+          command: git submodule init && git submodule update
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - run:
+          name: Compile lib
+          command: npm run compile
+
+  deploy_stg:
+    machine:
+      enabled: true
+    working_directory: ~/card
+    steps:
+      - checkout
+      - run:
+          name: Deploy to S3
+          command: |
+            aws s3 sync ./dist s3://card.stg.pagarme.net --delete
+            aws cloudfront create-invalidation --distribution-id $CDN_STG_DISTRIBUTION_ID --paths "/*"
+
+  deploy_prd:
+    machine:
+      enabled: true
+    working_directory: ~/card
+    steps:
+      - checkout
+      - run:
+          name: Deploy to S3
+          command: |
+            AWS_SECRET_ACCESS_KEY=$AWS_SECRET_KEY_PRD AWS_ACCESS_KEY_ID=$AWS_KEY_ID_PRD aws s3 sync ./dist s3://card.prd.pagarme.net --delete
+            AWS_SECRET_ACCESS_KEY=$AWS_SECRET_KEY_PRD AWS_ACCESS_KEY_ID=$AWS_KEY_ID_PRD aws cloudfront create-invalidation --distribution-id $CDN_PRD_DISTRIBUTION_ID --paths "/*"
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - deploy_stg:
+          requires:
+            - build
+
+      - deploy_prd:
+          requires:
+            - deploy_stg
+          filters:
+            branches:
+              only: master
