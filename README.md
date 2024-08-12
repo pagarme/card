@@ -1,3 +1,8 @@
+# This is a fork from https://github.com/jessepollak/card
+
+This project aims to provide a card animation and masks to customize Pagarme’s checkout page,
+we forked this project because we need to add some features that the original code does not.
+
 # Card - check out the **[demo](https://jessepollak.github.io/card)**
 
 ### A better credit card form in one line of code
